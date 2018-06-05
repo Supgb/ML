@@ -5,8 +5,8 @@ from sklearn.preprocessing import StandardScaler
 from datetime import datetime
 
 
-checkpoints_dir = 'tf_tmp_checkpoints/'
-root_log_dir = 'tf_log'
+checkpoints_dir = '../tf_tmp_checkpoints/'
+root_log_dir = '../tf_log'
 now = datetime.utcnow().strftime('%Y%m%d%H%M%S')
 log_dir = '{}/run-{}/'.format(root_log_dir, now)
 

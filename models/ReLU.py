@@ -3,7 +3,7 @@ import numpy as np
 from datetime import datetime
 
 
-root_log_dir = 'tf_log'
+root_log_dir = '../tf_log'
 now = datetime.utcnow().strftime('%Y%m%d%H%M%S')
 log_dir = '{}/run-{}/'.format(root_log_dir, now)
 

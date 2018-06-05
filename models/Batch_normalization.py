@@ -1,5 +1,5 @@
 from datetime import datetime
-from Plain_tf_implement_dnn_clf import shuffle_batch
+from models.Plain_tf_implement_dnn_clf import shuffle_batch
 import tensorflow as tf
 
 
@@ -29,8 +29,8 @@ batch_size = 50
 learning_rate = 0.01
 
 # Save and log dir
-checkpoints_dir = 'tf_tmp_checkpoints/'
-root_log_dir = 'tf_log'
+checkpoints_dir = '../tf_tmp_checkpoints/'
+root_log_dir = '../tf_log'
 now = datetime.utcnow().strftime('%Y%m%d%H%M%S')
 log_dir = '{}/run-{}/'.format(root_log_dir, now)
 
