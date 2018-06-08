@@ -1,6 +1,7 @@
 from datetime import datetime
 from models.Plain_tf_implement_dnn_clf import shuffle_batch
 import tensorflow as tf
+from tensorflow.contrib.layers import dropout
 
 
 # Loading training set and reshape it to (-1, 784)
@@ -15,6 +16,10 @@ n_outputs = 10
 X = tf.placeholder(tf.float32, shape=(None, n_inputs), name='X')
 y = tf.placeholder(tf.int64, shape=(None), name='y')
 is_training = tf.placeholder(tf.bool, shape=None, name='is_training')
+
+# Dropout regularization params
+# is_training_dropout = tf.placeholder(tf.bool, shape=(), name='is_training_dropout')
+keep_prob = 0.98
 
 # Batch normalization params
 bn_params = {
@@ -41,9 +46,12 @@ with tf.name_scope('dnn_batch_normalization'):
         normalizer_fn=tf.contrib.layers.batch_norm,
         normalizer_params=bn_params,
     ):
-        hidden_1 = tf.contrib.layers.fully_connected(X, n_hiddens1, activation_fn=tf.nn.relu, scope='hidden1')
-        hidden_2 = tf.contrib.layers.fully_connected(hidden_1, n_hiddens2, activation_fn=tf.nn.relu, scope='hidden2')
-        logits = tf.contrib.layers.fully_connected(hidden_2, n_outputs, activation_fn=None, scope='output')
+        X_drop = dropout(X, keep_prob, is_training=is_training)
+        hidden_1 = tf.contrib.layers.fully_connected(X_drop, n_hiddens1, activation_fn=tf.nn.relu, scope='hidden1')
+        hidden_1_drop = dropout(hidden_1, keep_prob, is_training=is_training)
+        hidden_2 = tf.contrib.layers.fully_connected(hidden_1_drop, n_hiddens2, activation_fn=tf.nn.relu, scope='hidden2')
+        hidden_2_drop = dropout(hidden_2, keep_prob, is_training=is_training)
+        logits = tf.contrib.layers.fully_connected(hidden_2_drop, n_outputs, activation_fn=None, scope='output')
 
 # Define the loss
 # Compute the cross entropy with the output that before go through the softmax function

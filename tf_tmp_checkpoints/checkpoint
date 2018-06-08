@@ -1,2 +1,2 @@
-model_checkpoint_path: "my_dnn3_final.ckpt"
-all_model_checkpoint_paths: "my_dnn3_final.ckpt"
+model_checkpoint_path: "batch_normalization_final.ckpt"
+all_model_checkpoint_paths: "batch_normalization_final.ckpt"
