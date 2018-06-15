@@ -81,7 +81,7 @@ saver = tf.train.Saver()
 
 # Execution phase
 with tf.Session() as sess:
-    init.run()
+    saver.restore(sess, checkpoints_dir+'batch_normalization_final.ckpt')
     for epoch in range(n_epochs):
         for X_batch, y_batch in shuffle_batch(X_train, y_train, batch_size):
             sess.run(training_op, feed_dict={
